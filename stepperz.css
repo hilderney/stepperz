@@ -1,5 +1,10 @@
-.stepper-wrapper {
+.stepper-main {
     margin: var(--main-space-medium) 0 var(--main-space) 0;
+    display: block;
+}
+.stepper-main > form {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 .stepper-group, .stepper-group-vertical {
     position: relative;
@@ -29,9 +34,16 @@
     width: 100%;
 }
 .stepper-navigation {
+    margin-top: var(--main-space);
     box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
     display: -webkit-box;
     display: flex;
+}
+.stepper-buttons {
+    margin-bottom: var(--main-space);
+}
+.stopper-buttons .btn-group-justified {
+    background-color: yellow;
 }
 .stepper {
     width: 100%;
@@ -58,33 +70,31 @@
     -webkit-mask-image: radial-gradient( circle, var(--main-white-color) 100%, #000 0);
 }
 .stepper-ripple {
-    padding: 0 var(--main-space-large);
+    padding: 0;
     -webkit-box-pack: start;
     justify-content: flex-start;
 }
 .stepper-container-wrapper {
+    margin-top: var(--main-space);
+    margin-bottom: var(--main-space);
     overflow: hidden;
-    transition: var(--main-animation-time) cubic-bezier(.4,0,.2,1);
+    transition: var(--main-animation-time) var(--main-animation-function);
     transition-property: height;
     will-change: height;
 }
 .stepper-navigation .stepper-content {
     font-family: monospace;
-    padding: 0 8px;
+    margin: 0 auto;
+    padding: 0 var(--main-space);
     display: -webkit-box;
     display: flex;
     min-height: 50px;
     -webkit-box-align: center;
     align-items: center;
-    transition: color var(--main-animation-time) cubic-bezier(.4,0,.2,1);
+    transition: color var(--main-animation-time) var(--main-animation-function);
     will-change: color;
     position: relative;
     z-index: 2;
-}
-
-.stepper-navigation .stepper-content:before {
-    width: 300%;
-    left: -300%;
 }
 .stepper-navigation .stepper-content:before {
     width: 300%;
@@ -99,22 +109,22 @@
     position: absolute;
     top: 50%;
     background-color: var(--main-darker-transparent-color);
-    transition: background-color var(--main-animation-time) cubic-bezier(.4,0,.2,1);
+    transition: background-color var(--main-animation-time) var(--main-animation-function);
     will-change: background-color;
     content: " ";
 }
 .stepper-navigation .stepper-icon {
-    background-color: var(--main-light-color);
+    background-color: var(--main-lighter-info-color);
     color: var(--main-white-color);
     width: 30px;
     height: 30px;
     border-radius: 80%;
-    transition: var(--main-animation-time) cubic-bezier(.4,0,.2,1);
+    transition: var(--main-animation-time) var(--main-animation-function);
     transition-duration: 0 var(--main-animation-time);
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0s;
-    transition-property: color, background-color;
-    will-change: color, background-color;
+    transition-property: background-color;
+    will-change: background-color;
     font-size: 15px;
     line-height: 30px;
     text-align: center;
@@ -131,14 +141,12 @@
     line-height: 16px;
     white-space: nowrap;
 }
-
 .stepper-navigation .stepper-description {
     opacity: .50;
     font-size: 12px;
     font-weight: 400;
     line-height: 16px;
 }
-
 .step {
     display: inline-block;
     padding: var(--main-space) var(--main-space-large);
@@ -160,36 +168,42 @@
     border: 1px solid transparent;
     border-radius: 0;
 }
-
 .btn-step {
+    transition: var(--main-animation-time) var(--main-animation-function);
+    transition-property: background-color;
+    will-change: background-color;
     color: var(--main-gray-color);
     background-color: var(--main-white-color);
     border-color: transparent;
 }
+
 .btn-step:focus {
     color: var(--main-dark-color);
-    background-color: var(--main-lighter-color);
+    background-color: var(--main-white-color);;
     border-color: transparent;
+    outline: none;
 }
 .btn-step:hover {
     color: var(--main-dark-color);
-    background-color: var(--main-lighter-color);
+    background-color: var(--main-lightest-success-color);
     border-color: transparent;
 }
 .btn-step:active {
     color: var(--main-dark-color);
-    background-color: var(--main-lighter-color);
+    background-color: var(--main-white-color);;
     border-color: transparent;
 }
 .btn-step:active:hover, 
 .btn-step:active:focus {
     color: var(--main-dark-color);
-    background-color: var(--main-lighter-color);
+    background-color: var(--main-white-color);;
     border-color: transparent;
 }
 .btn-step:active {
     background-image: none;
 }
+.btn-step.disabled,
+.btn-step[disabled],
 .btn-step.disabled:hover, 
 .btn-step[disabled]:hover, 
 .btn-step.disabled:focus, 
@@ -199,20 +213,23 @@
     outline: none;
 }
 .btn-step.btn-active {
-    transition: var(--main-animation-time) cubic-bezier(.4,0,.2,1);
-    transition-property: color, background-color;
+    color: var(--main-dark-color);
+}
+.btn-step.btn-active:hover {
     color: var(--main-dark-color);
 }
 .btn-step.btn-active .stepper-icon {
-    transition: var(--main-animation-time) cubic-bezier(.4,0,.2,1);
-    transition-property: color, background-color;
-    background-color: var(--main-success-color);
+    transition: var(--main-animation-time) var(--main-animation-function);
+    transition-property: background-color;
+    will-change: background-color;
+    background-color: var(--main-primary-color);
     color: var(--main-white-color);
 }
-.btn-step.btn-done .stepper-icon {
-    transition: var(--main-animation-time) cubic-bezier(.4,0,.2,1);
-    transition-property: color, background-color;
-    background-color: var(--main-success-color);
+.btn-step.btn-done .stepper-icon {  
+    transition: var(--main-animation-time) var(--main-animation-function);
+    transition-property: background-color;
+    will-change: background-color;
+    background-color: var(--main-lighter-primary-color);
     color: var(--main-white-color);
 }
 .stepper-container {
@@ -221,23 +238,73 @@
     -webkit-box-align: start;
     align-items: flex-start;
     flex-wrap: nowrap;
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
-    transition: -webkit-transform calc(var(--main-animation-time) * 1.1) cubic-bezier(.4,0,.2,1);
-    transition: transform calc(var(--main-animation-time) * 1.1) cubic-bezier(.4,0,.2,1);
-    transition: transform calc(var(--main-animation-time) * 1.1) cubic-bezier(.4,0,.2,1),-webkit-transform calc(var(--main-animation-time) * 1.1) cubic-bezier(.4,0,.2,1);
-    will-change: transform;
+    height: auto;
+    height: 100%;
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    transition: -webkit-transform var(--main-animation-time) var(--main-animation-function);
+    transition: all var(--main-animation-time) var(--main-animation-function);
+    will-change: all;
 }
 .step-pane {
+    transition: var(--main-animation-time) var(--main-animation-function);
+    transition-property: opacity;
+    will-change: opacity;
     width: 100%;
     opacity: 0;
-    transition: transform calc(var(--main-animation-time) * 1.1) cubic-bezier(.4,0,.2,1);
-    transition-property: opacity;
     -webkit-box-flex: 1;
     flex: 1 0 100%;
 }
 .step-pane.active {
-    opacity: 1;
-    transition: transform calc(var(--main-animation-time) * 1.1) cubic-bezier(.4,0,.2,1);
+    transition: --main-animation-time var(--main-animation-function);
     transition-property: opacity;
+    will-change: opacity;
+    opacity: 1;
+}
+.btn-nav-step {
+    color: var(--main-dark-color);
+    font-weight: 500;
+    background-color: var(--main-lighter-info-color);
+    border-top: 3px solid var(--main-lighter-info-color);
+    border-left: .5px solid var(--main-light-info-color);
+    border-right: .5px solid var(--main-light-info-color);
+    border-bottom: 3px solid var(--main-info-color);
+    transition: all var(--main-animation-time) var(--main-animation-function);
+    will-change: all;
+}
+.btn-nav-step.step-end {
+    color: var(--main-dark-color);
+    background-color: var(--main-lighter-success-color);
+    border-top: 3px solid var(--main-lighter-success-color);
+    border-left: .5px solid var(--main-light-success-color);
+    border-right: .5px solid var(--main-light-success-color);
+    border-bottom: 3px solid var(--main-success-color);
+    transition: all var(--main-animation-time) var(--main-animation-function);
+    will-change: all;
+}
+.btn-nav-step:hover {
+    border-bottom-color: var(--main-darker-info-color);
+    color: var(--main-black-color);
+}
+.btn-nav-step.step-end:hover {
+    border-bottom-color: var(--main-darker-success-color);
+    color: var(--main-black-color);
+}
+.btn-nav-step.disabled:hover,
+.btn-nav-step[disabled]:hover {
+    border-bottom-color: var(--main-dark-info-color);
+    color: var(--main-black-color);
+}
+.btn-nav-step.disabled,
+.btn-nav-step[disabled] {
+    border-bottom-color: var(--main-lighter-info-color);
+    color: var(--main-gray-color);
+}
+.btn-nav-step:focus {
+    outline: none;
+    box-shadow: none;
+}
+.btn-nav-step:focus:active {
+    outline-color: var(--main-darker-transparent-color);
+    box-shadow: none;
 }
